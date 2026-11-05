@@ -1,0 +1,35 @@
+{
+  "__VERSION__": 11,
+  "release.previous-version": "2.2.1",
+  "template.folder": "Templates",
+  "note.default-profile": {
+    "bindings": {
+      "note.literature-folder": "Literature Notes",
+      "citation.references-style": null,
+      "note.import-folder": "zotero_notes",
+      "note.import-colored-highlights": false,
+      "note.import-annotations-as-template": false
+    }
+  },
+  "library.document": {
+    "node": {
+      "kind": "recent"
+    },
+    "facets": [
+      "annotated"
+    ],
+    "tags": [],
+    "search": "",
+    "sort": [
+      {
+        "property": "lastActivity",
+        "direction": "DESC"
+      }
+    ],
+    "card": {
+      "allFields": false,
+      "annotations": false
+    },
+    "expanded": []
+  }
+}

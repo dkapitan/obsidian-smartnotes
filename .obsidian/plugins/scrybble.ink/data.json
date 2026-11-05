@@ -1,0 +1,22 @@
+{
+  "sync_folder": "scrybble/",
+  "self_hosted": false,
+  "custom_host": {
+    "endpoint": "",
+    "client_secret": "",
+    "client_id": ""
+  },
+  "sync_state": {
+    "/books/from-autonomy-to-ambiguity.pdf": 1033332,
+    "/Quick sheets": 1008639,
+    "/dharma/Gampopa/Ornament of Precious Liberation - Ken Holmes.pdf": 1008641,
+    "/dharma/Gampopa/Gampopa notes.pdf": 1008643,
+    "/books/how-to-take-smart-notes.pdf": 1021645,
+    "/dharma/Gampopa/Songs of Naropa  Khenchen Thrangu Rinpoche Marcia Binder Schmidt Kerry Moran": 1012303,
+    "/Designing Data-Intensive Applications - Martin Kleppmann.pdf": 1021668,
+    "/federated-analytics/ratnayake2023review.pdf": 1033297,
+    "/SEIN": 1033298
+  },
+  "refresh_token": "def50200bdb83bbeedea0ef2334bcf2b3aee4b482bd8e62c2ab8d9b597c1782bd310093f2c9e040f453979f2701415b002b260eb8a14718a3cc2c41cf1e51ef752d91f99a80bf3d5fb42ef7503ec253f24502680807438c33aab0609aaf9495d42b8f2442b816b6b0638d13c9d8d0bb677811a6b5cce650d25f0dafc24cb9f8125c3622232aaeaff0ab66eca276d93246718d294e4cd4d977408e5bb5bd36b2b7a34a9d09407fd5e16d8acce3825205059b9de43af2011373a56dac2f0b90e8d263b69c7e99a4080b99b12f6d4f0b8579f71442de7737e3bec0f6111151d6aa3a642d761e16c86bbc47aed004c1c4fec42048102a96291f190a42c790690c9bcb4d826c6c168cef5b7ae5fc6e3340fa02ea61273ef51c393338b5c078c4b8af2934e6fa3d2f1b65e9499e0e65355e8af0826e15daf25832f8cb2d491c75d7efe00fee155017424dcaa9f59da0e30b38ae5a40e23e6802c4effafa98c1acbfe8878f09747c16ef95fd90ee29cf8b6cf5c59387134e810d5d189e098eaba39e4a3dd59ac96a707025c",
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTk3NGFiMS0xYWZlLTcwMGEtYTY5Yi0yMmZlMGUzMzM0YzEiLCJqdGkiOiI0ZTkxZThhN2JlOTM3NTE5MWZiMGU2ZmI2MmM4YWJlZGM5ZDBiYmJmZTMxYmFmMTM1ZWNiZjRiYmQ2YTgxYWViYjQ2MmM4MzEzMTAzM2UxYyIsImlhdCI6MTc5Mzg5Mjg3Ni4yNTcwNCwibmJmIjoxNzkzODkyODc2LjI1NzA0MiwiZXhwIjoxODI1NDI4ODc2LjI1MzE0Niwic3ViIjoiMzg2Iiwic2NvcGVzIjpbXX0.w4rtw3avfv56DjkENaXKFOVp9tvKsw9ElE5efBvhJiUNAIrYJ_6cj0Qzzo_TraAiRdPFN3gVbr2JInczBLvcFv3bPfpCuahkYlUIAyDFQbxSuevkYGwjI5tQakvztT9smsv60T1JvUtcqbKrUdT3iR0r5DuEPn64WfDpUf6FoH9Q1Hbdbl7h-D2j0KPvIAwHKUspdQEJee0Uj3wJV_u9gnbTdBTIHWt5Z_LX2aMtpOXqY3-48gPMa81G6BU0Y6rHgNMKTY9thG2sHiniytDqSHUM92RMrPrbFPSMqjWkrEbFZgZ-mm5ouRUtzbRQ1T3cOXOt2vNil82-stkAZ6U8CyG2EOP1x9l0UWJ8aswk2c7diFcz-WXz3WfiASV5hueehxLbkRYwQHSrdPOwl76UE5p5qIVcnMUCnBmCdKzMxtH_7cvJ8fLWiRktM6VnCawqHbPbp-7gzqMw6c52KX1gPHpB614HfPU84xu2gqH8NoUecoAnJyCLDYDZOZgmkJW_MJ-J7KvfKl5KjO8JGnnqLFJnjaIk9rhxDdsevr3B-lPzoOMlGyv2YbOagaRaOEZFtAMOaqU_XfMfMBUMGgxlgeqIqQ-CLG5VBqJRkm9Q34Btajg7S-_Q9Mln86aeausp24cOl8IvnjcDb7Ug6RgcHmsELBW-P2q1aNGryVkVFOE"
+}

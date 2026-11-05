@@ -1,0 +1,14 @@
+{
+	"nodes":[
+		{"type":"file","file":"100 Data is infrastructure.md","id":"df3364746975d135","x":-780,"y":-400,"width":360,"height":820},
+		{"type":"file","file":"Projects.md","id":"82f536af22a2727f","x":-420,"y":-400,"width":360,"height":820},
+		{"id":"866af605d13f13b0","type":"text","text":"This is just an example of a canvas starting page. You can add and move around existing notes from your vault or sticky-notes that only appear on this page (like this one). You can also use it for mind-mapping or giving yourself an overview over a project. ","x":-1100,"y":-560,"width":640,"height":80,"color":"5"},
+		{"id":"4bd6c94657065046","type":"text","text":"Double Click on a Note to edit it.","x":-365,"y":-550,"width":250,"height":55,"color":"3"},
+		{"id":"ed89d9ae2762b80e","type":"text","text":"Move the canvas with your mouse (right click). ","x":-490,"y":-660,"width":250,"height":60,"color":"3"},
+		{"id":"3604b7d24384ef4a","x":-60,"y":-400,"width":400,"height":400,"type":"file","file":"200 Personal practice.md"}
+	],
+	"edges":[
+		{"id":"ec8bd2ea606cc44d","fromNode":"866af605d13f13b0","fromSide":"bottom","toNode":"df3364746975d135","toSide":"left"},
+		{"id":"13b01c778d97e613","fromNode":"4bd6c94657065046","fromSide":"bottom","toNode":"82f536af22a2727f","toSide":"top"}
+	]
+}

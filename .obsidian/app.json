@@ -1,0 +1,23 @@
+{
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Zettel",
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "spellcheckLanguages": null,
+  "attachmentFolderPath": "Files",
+  "userIgnoreFilters": [
+    "Files/",
+    "Daily Notes/",
+    "Continue/",
+    "PDFs/",
+    "Projects/",
+    "Templates/"
+  ],
+  "promptDelete": false
+}

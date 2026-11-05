@@ -1,0 +1,367 @@
+/* Status bar item: icon (setIcon) + progress bar + text side by side. */
+.tagged-sync-status {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--size-2-2);
+}
+
+.tagged-sync-status .tagged-sync-status-icon {
+	display: inline-flex;
+	--icon-size: var(--font-ui-small);
+}
+
+/*
+ * Width is the one hard constraint on a status bar item: it grows leftwards, and an item that grows
+ * too far simply runs off the edge with nothing to say it did. 60px of bar and a 100px cap on the
+ * document's name keep the whole item under ~195px whatever the notebook is called -- a pixel cap
+ * rather than a character count, because the UI font is proportional.
+ */
+.tagged-sync-status .tagged-sync-status-bar {
+	display: inline-flex;
+}
+
+.tagged-sync-status .tagged-sync-status-bar .setting-progress-bar {
+	width: 60px;
+	margin: 0;
+}
+
+/*
+ * Only the name element, which holds a document's name -- any length, and repeated in full by the
+ * tooltip. The sentence beside it lives in its own span and is never cut: it has nowhere else to be
+ * read.
+ */
+.tagged-sync-status .tagged-sync-status-name {
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Busy: the icon turns, so a sync whose text sits still for minutes still reads as running. */
+.tagged-sync-status.is-busy .tagged-sync-status-icon {
+	animation: tagged-sync-spin 1.5s linear infinite;
+}
+
+/* Stoppable: only a running sync answers a click, so only then does the item look like a button. */
+.tagged-sync-status.mod-clickable {
+	cursor: pointer;
+}
+
+@keyframes tagged-sync-spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tagged-sync-status.is-busy .tagged-sync-status-icon {
+		animation: none;
+	}
+}
+
+/*
+ * A live verdict about the value in the field beside it -- the vision-capability check under Model.
+ * Colour is set on the element by the code that paints it, because the verdict is the thing the colour
+ * is about.
+ */
+.tagged-sync-verdict {
+	padding-top: var(--size-4-1);
+}
+
+/*
+ * The selected backend's own rows, hosted by one settings row (settings-redesign spec §3.4). That row
+ * is a padded flex line made for a label and a control, which left the rows inside half as wide and
+ * indented once more (ticket 17's F8): the host row gives its box up, and the rows inside stand like
+ * the group's other rows. As specific as Obsidian's `.setting-group .setting-item:not(…)`, which pads
+ * every row of a group; later in the cascade, so it wins.
+ */
+.setting-group .setting-item.tagged-sync-backend-row {
+	display: block;
+	padding: 0;
+}
+
+/*
+ * The local model's setup card: one block that carries prose, a progress bar and a button row, so it
+ * takes the card treatment itself rather than sitting between the cards as loose text.
+ */
+.tagged-sync-card {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	line-height: var(--line-height-tight);
+	background: var(--setting-items-background, transparent);
+	border-radius: var(--setting-items-radius, 0);
+	padding: var(--setting-items-padding-y, var(--size-4-2)) var(--setting-items-padding-x, 0);
+}
+
+.tagged-sync-card > h4,
+.tagged-sync-card > p,
+.tagged-sync-card > progress {
+	margin: 0 0 var(--size-4-2);
+}
+
+/* Obsidian pads a heading in the settings 16 px in; inside the card it would stand right of its text. */
+.tagged-sync-card > h4 {
+	padding: 0;
+}
+
+.tagged-sync-card > *:last-child {
+	margin-bottom: 0;
+}
+
+/* Rows that already work without being touched, folded away until someone wants them. */
+.tagged-sync-advanced > summary {
+	font-size: var(--font-ui-small);
+	color: var(--text-muted);
+	cursor: pointer;
+	padding: var(--size-4-2) var(--setting-items-padding-x, 0);
+}
+
+/*
+ * A row inside the card is already inside the card's padding; a second inset would step it right. As
+ * specific as Obsidian's padding for every row of a group, and later, so it wins inside a group too.
+ */
+.setting-group .tagged-sync-card > .setting-item,
+.tagged-sync-card > .setting-item {
+	padding-inline: 0;
+	background: transparent;
+	border: none;
+}
+
+/*
+ * A margin note: the reader's own hand, and the one entry the digest still puts a box around -- the box
+ * is what tells it apart from the document's text. `handwritten` is the plugin's own callout type, so
+ * everything here reaches these entries and no other callout in the reader's vault.
+ *
+ * A bar instead of a filled box. The fill said what the bar says and said it across the whole entry, so
+ * a digest page of thirty notes read as a column of slabs. `--callout-color` is deliberately left alone:
+ * Obsidian carried it from an RGB triple to a whole colour along the way, so a value written here would
+ * be read one way by the oldest app this plugin supports and another way by the newest. The border and
+ * the background are set outright instead, which every version understands the same.
+ */
+.callout[data-callout="handwritten"] {
+	--callout-icon: lucide-pen-line;
+	--callout-padding: 0 0 0 var(--size-4-3);
+	--callout-title-color: var(--text-muted);
+	/* The control for the handwriting hangs in this box's top corner rather than in its text; see below. */
+	position: relative;
+	/* Nothing else is in that corner while the note is only being read, so the eye sits right in it. */
+	--tagged-sync-region-inset: 0px;
+	background-color: transparent;
+	border-radius: 0;
+	border-inline-start: 2px solid var(--color-blue);
+	/*
+	 * Obsidian blends a callout into the page -- `darken` under a light theme, `lighten` under a dark one
+	 * -- which is meant for a translucent fill. This box has no fill, and what it holds is a picture of
+	 * white paper with the reader's ink on it: the one thing in the digest that must arrive untouched.
+	 */
+	mix-blend-mode: normal;
+}
+
+/*
+ * In the editor the corner is taken: Obsidian hangs its own "Edit this block" control there, drawn over
+ * the entry and on top of ours, so a press meant for the eye opened the block for editing instead. The
+ * eye steps aside by the width of that control -- Obsidian's `.embed-actions`: 4 px clear of the edge and
+ * some 32 px wide -- and the two sit side by side.
+ */
+.markdown-source-view .callout[data-callout="handwritten"] {
+	--tagged-sync-region-inset: var(--size-4-10);
+}
+
+/* The title says where the note *sat*. That it is handwriting is what the pen in front of it says. */
+.callout[data-callout="handwritten"] .callout-title {
+	--callout-title-weight: var(--font-normal);
+	font-size: var(--font-smaller);
+	gap: var(--size-2-2);
+	/* Clear of the control in the corner, so a long anchor wraps instead of running underneath it. */
+	padding-inline-end: calc(var(--size-4-6) + var(--tagged-sync-region-inset, 0px));
+}
+
+.callout[data-callout="handwritten"] .callout-icon {
+	--icon-size: var(--icon-s);
+}
+
+/*
+ * A margin note's handwriting, drawn out of the embedded PDF on request (never on open). The button is
+ * the whole control: it shows the band and takes it away again.
+ *
+ * One icon in the entry's corner. As a button with a written label it took a line of the entry to itself
+ * and spelled out what the icon already says; out of the flow it costs the entry no height at all. The
+ * label is not gone -- it is the `aria-label`, which a screen reader announces and Obsidian shows on
+ * hover, so the wording still reaches whoever needs it.
+ */
+.tagged-sync-region-button {
+	--icon-size: var(--icon-s);
+	position: absolute;
+	top: 0;
+	inset-inline-end: var(--tagged-sync-region-inset, 0px);
+}
+
+/*
+ * The band is the whole page's width and the note's column is not, so it is scaled to fit rather than
+ * allowed to widen the note. The white paper it brings with it is given the same rounded frame the
+ * embeds have, so it reads as a piece of document instead of a hole in a dark theme.
+ */
+.tagged-sync-region {
+	margin-top: var(--size-4-2);
+}
+
+.tagged-sync-region > canvas {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border-radius: var(--radius-s);
+	border: 1px solid var(--background-modifier-border);
+}
+
+/*
+ * `--font-smaller` rather than `--font-ui-smaller`: the UI sizes are fixed pixels, and a vault reading at
+ * font size 12 draws them at the size of its own body text -- so the sentence that means to step back
+ * would stand exactly as tall as the note it apologises for.
+ */
+.tagged-sync-region-message {
+	font-size: var(--font-smaller);
+	color: var(--text-muted);
+}
+
+/*
+ * The fold-away pairing help, the last part of *Connect device*'s description (settings-redesign P10).
+ * Folded so it reads as a footnote rather than as another setting -- an rM1 or rM2 owner needs none of
+ * it and should be able to skip it at a glance, while a Paper Pro owner finds the factory-reset warning
+ * before they type a password. Flush with the description above it: it is part of the same text.
+ */
+.tagged-sync-pairing-help {
+	margin: var(--size-4-2) 0 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.tagged-sync-pairing-help summary {
+	cursor: pointer;
+}
+
+.tagged-sync-pairing-help p {
+	margin: var(--size-4-2) 0 0;
+}
+
+/*
+ * A tag in Tag routing (settings-redesign spec §4.5), in Obsidian's own tag look and nothing of ours, so
+ * a theme that restyles tags restyles these. Obsidian styles every button (`button:not(.clickable-icon)`),
+ * so a pill takes that back first, with a selector that outranks it.
+ */
+.setting-item .tagged-sync-pill {
+	display: inline-flex;
+	align-items: center;
+	height: auto;
+	border: var(--tag-border-width) solid var(--tag-border-color);
+	box-shadow: none;
+	background: var(--tag-background);
+	color: var(--tag-color);
+	padding: var(--tag-padding-y) var(--tag-padding-x);
+	border-radius: var(--tag-radius);
+	font-size: var(--tag-size);
+	line-height: var(--line-height-tight);
+}
+
+.setting-item button.tagged-sync-pill {
+	cursor: pointer;
+}
+
+.setting-item button.tagged-sync-pill:hover {
+	background: var(--tag-background-hover);
+	color: var(--tag-color-hover);
+}
+
+/*
+ * The filter box, from twelve tags (06 #4). Obsidian builds a group's search box once, at its first draw,
+ * which comes before the first scan, so the box is always there and the rows say on the group when it
+ * shows (`settings-tab.ts` `tagGroup`).
+ */
+.tagged-sync-group-tags:not(.tagged-sync-filter-on) > .setting-group-search {
+	display: none;
+}
+
+/* A pill the free version cannot map: shown, so the reason can be asked for, but faded. */
+.setting-item .tagged-sync-pill.is-capped {
+	opacity: 0.5;
+}
+
+/* The found tags take the whole row: no name, no control column, the pills wrapping under each other. */
+.setting-item.tagged-sync-pill-row {
+	display: block;
+}
+
+.tagged-sync-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-2);
+}
+
+/* "Syncing <tag> needs Tagged Sync Pro." and its button, under the pills; empty until a faded pill is clicked. */
+.tagged-sync-capped-line:not(:empty) {
+	display: flex;
+	align-items: center;
+	gap: var(--size-4-2);
+	margin-top: var(--size-4-3);
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+/*
+ * The folder button of a mapping whose folder was renamed or deleted (P13): the mapping still works.
+ * Outranks Obsidian's `button:not(.clickable-icon)` colour, as the pills do.
+ */
+.setting-item button.tagged-sync-folder-missing {
+	color: var(--text-warning);
+}
+
+/*
+ * The removal note under the mapped tags, a footer to them (06 #6): small, muted, and without the
+ * separator and padding of a row of its own. Obsidian 1.15 draws the separator as each row's `::before`
+ * (measured in ticket 12). As specific as Obsidian's padding for every row of a group, and later.
+ */
+.setting-group .setting-item.tagged-sync-row-note {
+	padding-top: 0;
+}
+
+.setting-group .setting-item.tagged-sync-row-note::before {
+	display: none;
+}
+
+.tagged-sync-row-note .setting-item-name {
+	display: none;
+}
+
+.tagged-sync-row-note .setting-item-description {
+	font-size: var(--font-ui-smaller);
+	padding-top: 0;
+}
+
+/*
+ * A highlight in the digest, in the colour the marker had -- named for the Zotero colour of the
+ * same hue (`highlight-color.ts`), so a green mark is the same green in the note and in the
+ * library. Zotero's own eight, at the translucency Obsidian gives its default mark
+ * (`--text-highlight-bg` is rgba(255, 208, 0, 0.4)); a touch fainter in the dark theme, where a
+ * pastel on black glares. A mark with no recorded colour is Obsidian's `==...==` and gets none of
+ * this. A theme or snippet may override any of them.
+ */
+mark.tagged-sync-hl-yellow { background-color: rgba(255, 212, 0, 0.4); }
+mark.tagged-sync-hl-red { background-color: rgba(255, 102, 102, 0.4); }
+mark.tagged-sync-hl-green { background-color: rgba(95, 178, 54, 0.4); }
+mark.tagged-sync-hl-blue { background-color: rgba(46, 168, 229, 0.4); }
+mark.tagged-sync-hl-purple { background-color: rgba(162, 138, 229, 0.4); }
+mark.tagged-sync-hl-magenta { background-color: rgba(229, 110, 238, 0.4); }
+mark.tagged-sync-hl-orange { background-color: rgba(241, 152, 55, 0.4); }
+mark.tagged-sync-hl-gray { background-color: rgba(170, 170, 170, 0.4); }
+
+.theme-dark mark.tagged-sync-hl-yellow { background-color: rgba(255, 212, 0, 0.3); }
+.theme-dark mark.tagged-sync-hl-red { background-color: rgba(255, 102, 102, 0.3); }
+.theme-dark mark.tagged-sync-hl-green { background-color: rgba(95, 178, 54, 0.3); }
+.theme-dark mark.tagged-sync-hl-blue { background-color: rgba(46, 168, 229, 0.3); }
+.theme-dark mark.tagged-sync-hl-purple { background-color: rgba(162, 138, 229, 0.3); }
+.theme-dark mark.tagged-sync-hl-magenta { background-color: rgba(229, 110, 238, 0.3); }
+.theme-dark mark.tagged-sync-hl-orange { background-color: rgba(241, 152, 55, 0.3); }
+.theme-dark mark.tagged-sync-hl-gray { background-color: rgba(170, 170, 170, 0.3); }
